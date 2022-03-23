@@ -8,15 +8,10 @@ builds:
     ldflags:
       - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}"
     goos:
-      - freebsd
-      - windows
       - linux
       - darwin
     goarch:
       - amd64
-      - "386"
-      - arm
-      - arm64
     ignore:
       - goos: darwin
         goarch: "386"
@@ -39,6 +34,7 @@ signs:
       - "${signature}"
       - "--detach-sign"
       - "${artifact}"
+    stdin: '{{ .Env.GPG_PASSWORD }}'
 release:
 changelog:
   skip: true
